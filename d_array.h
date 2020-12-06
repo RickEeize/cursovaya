@@ -7,38 +7,39 @@ template <class T>
 class d_array {
 
 public:
-	d_array();
-	d_array(const d_array& other);
-	~d_array();
-	void insert(const T& value);
-	void insert(const T& value, size_t pos);
-	void remove();
-	void remove(size_t pos);
-	size_t size() const;
-	size_t capacity() const;
-	void sort(bool type = 0);
+	d_array(); // Конструктор по умолчанию
+	d_array(const d_array& other); // Копирующий конструктор
+	~d_array(); // Деструктор
+	void insert(const T& value); // Метод для вставки в конец
+	void insert(const T& value, size_t pos); // Метод для вставки на позицию
+	void remove(); // Метод для удаления с конца
+	void remove(size_t pos); // Метод для удаления с позиции
+	size_t size() const; // Метод для просмотра реального размера массива
+	size_t capacity() const; // Метод для просмотра количества выделенных ячеек 
+	void sort(bool type = 0); // Метод для сортировки
 	
-	void save(std::ofstream & out) const;
-	void load(std::ifstream& in);
-	void print() const;
+	void save(std::ofstream & out) const; // Метод для сохранения в бинарный файл 
+	void load(std::ifstream& in); // Метод для загрузки из бинарного файла
+	void print() const; // Метод для вывода массива в консоль
 
 	// Методы подходящие для работы только с классом person, удаляем их, затем создаем специализацию (внизу файла)
 	// Удаление не позволит использовать эти методы для типов отличных от person
-	d_array<T> get_by_interval(time_t date_1, time_t date_2) const = delete;
-	d_array<T> get_by_group(const char* group) const = delete;
-	d_array<T> get_by_surname(const char* surname) const = delete;
-	void add_attendance_group(const char* group, time_t time) = delete;
-	void add_attendance_person(const char* surname, time_t time) = delete;
-	void add_group(const char* group, const char** surnames, size_t people_count) = delete;
-	void remove_group(const char* group) = delete;
+
+	d_array<T> get_by_interval(time_t date_1, time_t date_2) const = delete; // Метод для получения студентов посещавших занятия в интервале
+	d_array<T> get_by_group(const char* group) const = delete; // Метод для получения студентов определенной группы
+	d_array<T> get_by_surname(const char* surname) const = delete; // Метод для получения студентов определенной фамилии
+	void add_attendance_group(const char* group, time_t time) = delete; // Метод для добавления посещения группе студентов
+	void add_attendance_person(const char* surname, time_t time) = delete; // Метод для добавления посещения студентам с определенной фамилией
+	void add_group(const char* group, const char** surnames, size_t people_count) = delete; // Метод для добавления группы студентов
+	void remove_group(const char* group) = delete; // Метод для удаления группы студентов
 
 private:
-	void resize(size_t new_capacity);
+	void resize(size_t new_capacity); // Метод для изменения размера выделенных ячеек
 
-	T* _array;
-	size_t _length;
-	size_t _capacity;
-	const static size_t _init_capacity = 8;
+	T* _array; // Динамический массив типа T
+	size_t _length; // Текущая длина массива
+	size_t _capacity; // Количество выделенных ячеек в массиве
+	const static size_t _init_capacity = 8; // Начальное кол-во выделенных ячеек (используется при создании массива)
 };
 
 template<class T>
